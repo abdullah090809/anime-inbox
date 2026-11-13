@@ -3,7 +3,6 @@
 // it is opened. This file must be imported once at startup (index.ts) so the task is defined.
 // The native modules are loaded defensively so the app still opens in Expo Go, where background
 // tasks may be unavailable.
-import '../env';
 import { flushSaves, getState, hydrate } from '../store';
 import { processQueue, scanInbox } from './inbox';
 import { notifyReady } from './notify';

@@ -1,5 +1,4 @@
 // File helpers. Expo SDK 54 moved the classic file API to 'expo-file-system/legacy'.
-import '../env';
 
 let FS: any;
 try {

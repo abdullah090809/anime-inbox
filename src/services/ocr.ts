@@ -2,7 +2,6 @@
 // The native module is loaded defensively: if it is missing from the build the app still starts,
 // and screenshots simply go to the manual "pick text" flow.
 import { Image } from 'react-native';
-import '../env';
 import type { OcrLine } from '../types';
 
 let mod: any = null;
