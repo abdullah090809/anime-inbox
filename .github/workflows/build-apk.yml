@@ -1,0 +1,48 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:   # run it by hand: Actions tab -> Build Android APK -> Run workflow
+  push:
+    branches: [main]
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install packages
+        run: |
+          npm install --legacy-peer-deps
+          npx expo install --fix
+
+      - name: Generate the Android project
+        run: npx expo prebuild --platform android --clean
+
+      - name: Turn off R8 shrinking (can break native modules in release builds)
+        run: |
+          cd android
+          grep -q '^android.enableMinifyInReleaseBuilds' gradle.properties \
+            && sed -i 's/^android.enableMinifyInReleaseBuilds=.*/android.enableMinifyInReleaseBuilds=false/' gradle.properties \
+            || echo 'android.enableMinifyInReleaseBuilds=false' >> gradle.properties
+
+      - name: Build the APK (phone architecture only, faster)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: anime-inbox-apk
+          path: android/app/build/outputs/apk/release/*.apk

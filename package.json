@@ -1,0 +1,44 @@
+{
+  "name": "anime-inbox",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "prebuild": "expo prebuild --platform android --clean",
+    "typecheck": "tsc --noEmit",
+    "test:logic": "tsc -p tests/tsconfig.logic.json && node tests/logic.test.js .test-build",
+    "start:dev": "expo start --dev-client"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "*",
+    "@infinitered/react-native-mlkit-text-recognition": "latest",
+    "@react-native-async-storage/async-storage": "*",
+    "@react-navigation/bottom-tabs": "^7.4.0",
+    "@react-navigation/native": "^7.1.0",
+    "@react-navigation/native-stack": "^7.3.0",
+    "expo": "^58.0.0",
+    "expo-background-task": "*",
+    "expo-clipboard": "*",
+    "expo-dev-client": "*",
+    "expo-document-picker": "*",
+    "expo-file-system": "*",
+    "expo-haptics": "*",
+    "expo-image-manipulator": "*",
+    "expo-image-picker": "*",
+    "expo-keep-awake": "*",
+    "expo-notifications": "*",
+    "expo-sharing": "*",
+    "expo-status-bar": "*",
+    "expo-task-manager": "*",
+    "react": "*",
+    "react-native": "*",
+    "react-native-safe-area-context": "*",
+    "react-native-screens": "*"
+  },
+  "devDependencies": {
+    "@types/react": "*",
+    "typescript": "*"
+  }
+}
